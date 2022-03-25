@@ -4,7 +4,9 @@ public class Product
     public string Name { get; set; } = string.Empty;
     public decimal? Price { get; set; }
 
+#pragma warning disable CRRSP08 // A misspelled word has been found
     public bool NamebeginswithS => Name?[0] == 'S';
+#pragma warning restore CRRSP08 // A misspelled word has been found
 
     public static Product?[] GetProducts()
     {
