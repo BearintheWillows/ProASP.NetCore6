@@ -2,13 +2,13 @@
 
 public class EFStoreRepository : IStoreRepository
 {
-	private  StoreDbContext _context;
-	
-	public EFStoreRepository(StoreDbContext ctx)
-	{
-		_context = ctx;
-	}
-	
-	public IQueryable<Product> Products => _context.Products;
-	
+    private readonly StoreDbContext _context;
+
+    public EFStoreRepository( StoreDbContext ctx ) { _context = ctx; }
+
+    #region IStoreRepository Members
+
+    public IQueryable<Product> Products => _context.Products;
+
+    #endregion
 }
