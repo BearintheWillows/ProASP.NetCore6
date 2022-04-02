@@ -7,28 +7,26 @@
     <tr>
         <th>Quanitity</th>
         <th>Item</th>
-        <th class="tet-right">Price</th>>
+        <th class="text-right">Price</th>>
         <th class="text-right">Subtotal</th>
     </tr>
     <tbody>
-    @foreach ( var line in Model ? ,
-        Cart?.Lines >>  Enumerable.Empty<Cart.CartLine>())
+    @foreach ( Cart.CartLine line in Model?.Cart?.Lines ?? Enumerable.Empty<Cart.CartLine>() )
     {
         <tr>
-            <td class="text-center">@line.Quanitity</td>
+            <td class="text-center">@line.Quantity</td>
             <td class="text-left">@line.Product.Name</td>
             <td class="text-right">@line.Product.Price.ToString( "c" )</td>
-            <td class="text-right">@( ( line.Quanitity * line.Product.Price ).ToString( "c" ) )</td>
+            <td class="text-right">@( ( line.Quantity * line.Product.Price ).ToString( "c" ) )</td>
         </tr>
     }
     </tbody>
     <tfoot>
     <tr>
         <td colspan="3 text-right">Total:</td>
-        <td class="text-right">@Model.Cart.ComputeTotalValue().ToString( "c" )</td>
+        <td class="text-right">@Model.Cart?.ComputeTotalValue().ToString( "c" )</td>
     </tr>
     </tfoot>
-    </thead>
 </table>
 
 <div class="text-center">

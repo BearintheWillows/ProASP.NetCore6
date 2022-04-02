@@ -4,11 +4,11 @@ public class Cart
 {
 	public List<CartLine> Lines { get; set; } = new();
 
-	public virtual void AddItem( Product product, int quantity )
+	public void AddItem( Product product, int quantity )
 	{
+		Console.WriteLine( product.Name );
 		CartLine? line = Lines
-		                .Where( p => p.Product.ProductID == product.ProductID )
-		                .FirstOrDefault();
+		   .FirstOrDefault( p => p.Product.ProductID == product.ProductID );
 
 		if ( line == null )
 		{
@@ -23,14 +23,16 @@ public class Cart
 		{
 			line.Quantity += quantity;
 		}
+
+		Console.WriteLine( product.Name );
 	}
 
-	public virtual void RemoveLine( Product product ) =>
+	public void RemoveLine( Product product ) =>
 		Lines.RemoveAll( l => l.Product.ProductID == product.ProductID );
 
-	public virtual decimal ComputeTotalValue() => Lines.Sum( e => e.Product.Price * e.Quantity );
+	public decimal ComputeTotalValue() => Lines.Sum( e => e.Product.Price * e.Quantity );
 
-	public virtual void Clear() => Lines.Clear();
+	public void Clear() => Lines.Clear();
 
 	#region Nested type: CartLine
 
