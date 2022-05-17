@@ -1,0 +1,36 @@
+@model IEnumerable<GuestResponse>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Responses</title>
+        <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
+    </head>
+    <body>
+    <div class="text-center p-2">
+        <h2 class="text-center">Here is who is attending: </h2>
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+            <tr><th>Name</th><th>Email</th><th>Phone</th></tr>
+            </thead>
+            <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Name</td>
+                    <td>@r.Email</td>
+                    <td>@r.Phone</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    
+    <a asp-action="Index">Back to Home</a>
+    </body>
+</html>
