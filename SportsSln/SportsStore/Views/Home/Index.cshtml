@@ -1,0 +1,25 @@
+@model IQueryable<Product>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>SS: Home</title>
+</head>
+<body>
+<div>
+    <h4>Welcome!</h4>
+   @foreach (var product in Model)
+   {
+       <div>
+            <h4>@product.Name</h4>
+            <p>@product.Description</p>
+            <p>@product.Price.ToString("c")</p>
+        </div>
+    }
+</div>
+</body>
+</html>
