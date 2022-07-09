@@ -619,6 +619,7 @@ fabric.properties
 
 # Support for Project snippet scope
 .vscode/*.code-snippets
+.idea
 
 # Ignore code-workspaces
 
