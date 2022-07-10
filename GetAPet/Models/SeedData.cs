@@ -14,7 +14,6 @@ public static class SeedData
 			context.Pets.AddRange( new Pet
 				                       {
 				                       Name = "Bobby",
-				                       DateOfBirth = new DateTime( 1 / 1 / 2019 ),
 				                       Species = "Dog",
 				                       Breed = "Labrador",
 				                       Color = "Black/White",
@@ -24,7 +23,6 @@ public static class SeedData
 			                       new Pet
 				                       {
 				                       Name = "Daytona",
-				                       DateOfBirth = new DateTime( 25 / 5 / 2010 ),
 				                       Species = "Dog",
 				                       Breed = "Collie",
 				                       Color = "Black/White",
@@ -34,7 +32,6 @@ public static class SeedData
 			                       new Pet
 				                       {
 				                       Name = "Suki",
-				                       DateOfBirth = new DateTime( 19 / 3 / 2016 ),
 				                       Species = "Dog",
 				                       Breed = "Jack Russel",
 				                       Color = "Tri-Color",
@@ -44,7 +41,6 @@ public static class SeedData
 			                       new Pet
 				                       {
 				                       Name = "Lexi",
-				                       DateOfBirth = new DateTime( 21 / 2 / 2011 ),
 				                       Species = "Dog",
 				                       Breed = "Labrador/Collie",
 				                       Color = "Tri-Color",
@@ -54,7 +50,6 @@ public static class SeedData
 			                       new Pet
 				                       {
 				                       Name = "Evigt",
-				                       DateOfBirth = new DateTime( 6 / 7 / 2020 ),
 				                       Species = "Dog",
 				                       Breed = "Collie/Cocker Spaniel",
 				                       Color = "Black/White",
@@ -64,7 +59,6 @@ public static class SeedData
 			                       new Pet
 				                       {
 				                       Name = "Poppy",
-				                       DateOfBirth = new DateTime( 3 / 1 / 2014 ),
 				                       Species = "Dog",
 				                       Breed = "Great Dane",
 				                       Color = "Tan",
@@ -74,7 +68,6 @@ public static class SeedData
 			                       new Pet
 				                       {
 				                       Name = "Bella",
-				                       DateOfBirth = new DateTime( 1 / 1 / 2012 ),
 				                       Species = "Dog",
 				                       Breed = "Labrador",
 				                       Color = "Yellow",
@@ -84,7 +77,6 @@ public static class SeedData
 			                       new Pet
 				                       {
 				                       Name = "Leeroy",
-				                       DateOfBirth = new DateTime( 5 / 11 / 2022 ),
 				                       Species = "Dog",
 				                       Breed = "Collie",
 				                       Color = "Black",
@@ -94,7 +86,6 @@ public static class SeedData
 			                       new Pet
 				                       {
 				                       Name = "Jenkins",
-				                       DateOfBirth = new DateTime( 2 / 3 / 2009 ),
 				                       Species = "Dog",
 				                       Breed = "Great Dane",
 				                       Color = "Tan",
@@ -104,7 +95,6 @@ public static class SeedData
 			                       new Pet
 				                       {
 				                       Name = "Jack",
-				                       DateOfBirth = new DateTime( 1 / 1 / 2008 ),
 				                       Species = "Dog",
 				                       Breed = "Labrador",
 				                       Color = "Black",

@@ -1,8 +1,15 @@
-﻿@{
-    ViewData[ "Title" ] = "Home Page";
+﻿@model IQueryable<Pet>
+@{
+    ViewData[ "Title" ] = "Get A Pet!";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@foreach ( var pet in Model ?? Enumerable.Empty<Pet>() )
+{
+    <div>
+        <h2>@pet.Name</h2>
+        <h3>@pet.Breed</h3>
+        <h3>@pet.Color</h3>
+        <h3>@pet.Notes</h3>
+        <h4>@pet.Price.ToString("C")</h4>
+    </div>
+}
