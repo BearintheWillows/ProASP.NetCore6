@@ -4,7 +4,15 @@ using GetAPet.Models;
 
 namespace GetAPet.Controllers;
 
+using Models.Repository;
+
 public class HomeController : Controller
 {
-	public IActionResult Index() => View();
+	private IAppRepository _repository;
+	
+	public HomeController(IAppRepository repository)
+	{
+		_repository = repository;
+	}
+	public IActionResult Index() => View(_repository.Pets);
 }

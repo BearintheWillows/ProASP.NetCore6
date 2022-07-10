@@ -4,7 +4,7 @@ public class Pet
 {
 	public int     Id          { get; set; }
 	public string  Name        { get; set; } = String.Empty;
-	public string  DateOfBirth { get; set; } = String.Empty;
+	public DateTime  DateOfBirth { get; set; }
 	public string  Species     { get; set; } = String.Empty;
 	public string  Breed       { get; set; } = String.Empty;
 	public string  Color       { get; set; } = String.Empty;

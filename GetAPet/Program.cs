@@ -1,4 +1,5 @@
 using GetAPet.Data;
+using GetAPet.Models;
 using GetAPet.Models.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,5 +34,6 @@ app.UseAuthorization();
 app.MapControllerRoute( name: "default",
                         pattern: "{controller=Home}/{action=Index}/{id?}"
 );
+SeedData.EnsurePopulated(app);
 
 app.Run();
