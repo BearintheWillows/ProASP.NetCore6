@@ -27,13 +27,13 @@ if ( !app.Environment.IsDevelopment() )
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+//app.UseRouting();
 
-app.UseAuthorization();
 
-app.MapControllerRoute( name: "default",
-                        pattern: "{controller=Home}/{action=Index}/{id?}"
-);
+app.MapControllerRoute("pagination", "Pets/Page-{currentPage}", 
+                       new { Controller = "Home", action = "Index" });
+
+app.MapDefaultControllerRoute();
 SeedData.EnsurePopulated(app);
 
 app.Run();

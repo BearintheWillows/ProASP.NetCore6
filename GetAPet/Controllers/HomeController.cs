@@ -10,20 +10,20 @@ using Models.Repository;
 public class HomeController : Controller
 {
 	private IAppRepository _repository;
-	public  int            PageSize = 4;
+	public  int            PageSize = 3;
 	public HomeController(IAppRepository repository)
 	{
 		_repository = repository;
 	}
 
-	public ViewResult Index(int productPage = 1) => View( new PetListViewModel()
+	public ViewResult Index(int currentPage = 1) => View( new PetListViewModel()
 			{
 			Pets = _repository.Pets.OrderBy( p => p.Id )
-			                  .Skip( ( productPage - 1 ) * PageSize )
+			                  .Skip( ( currentPage - 1 ) * PageSize )
 			                  .Take( PageSize ),
 			PagingInfo = new PagingInfo
 				{
-				CurrentPage = productPage, ItemsPerPage = PageSize, TotalItems = _repository.Pets.Count()
+				CurrentPage = currentPage, ItemsPerPage = PageSize, TotalItems = _repository.Pets.Count()
 				},
 			}
 	);

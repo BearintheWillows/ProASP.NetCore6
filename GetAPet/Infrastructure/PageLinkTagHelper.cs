@@ -36,7 +36,7 @@ public class PageLinkTagHelper : TagHelper
 			{
 				TagBuilder tag = new("a");
 				tag.Attributes["href"] = urlHelper.Action(PageAction,
-				                                          new { productPage = i });
+				                                          new { currentPage = i });
 				tag.InnerHtml.AppendHtml(i.ToString());
 				result.InnerHtml.AppendHtml(tag);
 			}
