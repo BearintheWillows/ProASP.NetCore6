@@ -4,6 +4,7 @@ using GetAPet.Models;
 
 namespace GetAPet.Controllers;
 
+using Models.Pagination;
 using Models.Repository;
 
 public class HomeController : Controller
@@ -14,10 +15,16 @@ public class HomeController : Controller
 	{
 		_repository = repository;
 	}
-	
-	public ViewResult Index(int productPage = 1)
-	=> View(_repository.Pets
-	                   .OrderBy(p => p.Id)
-	                   .Skip( (productPage - 1) * PageSize)
-	                   .Take(PageSize));
+
+	public ViewResult Index(int productPage = 1) => View( new PetListViewModel()
+			{
+			Pets = _repository.Pets.OrderBy( p => p.Id )
+			                  .Skip( ( productPage - 1 ) * PageSize )
+			                  .Take( PageSize ),
+			PagingInfo = new PagingInfo
+				{
+				CurrentPage = productPage, ItemsPerPage = PageSize, TotalItems = _repository.Pets.Count()
+				},
+			}
+	);
 }

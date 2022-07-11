@@ -1,9 +1,9 @@
-﻿@model IQueryable<Pet>
+﻿@model GetAPet.Models.Pagination.PetListViewModel
 @{
     ViewData[ "Title" ] = "Get A Pet!";
 }
 
-@foreach ( var pet in Model ?? Enumerable.Empty<Pet>() )
+@foreach ( var pet in Model.Pets ?? Enumerable.Empty<Pet>() )
 {
     <div>
         <h2>@pet.Name</h2>
@@ -13,3 +13,7 @@
         <h4>@pet.Price.ToString("C")</h4>
     </div>
 }
+
+<div page-model="@Model?.PagingInfo" page-action="Index">
+    
+</div>

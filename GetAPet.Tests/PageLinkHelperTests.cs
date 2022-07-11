@@ -15,16 +15,16 @@ public class PageLinkHelperTests
 	{
 		// Arrange
 		var urlHelper = new Mock<IUrlHelper>();
-		urlHelper.SetupSequence( x => x.Action( It.IsAny<UrlActionContext>() ) )
-		         .Returns( "Test/Page1" )
-		         .Returns( "Test/Page2" )
-		         .Returns( "Test/Page3" );
+		urlHelper.SetupSequence(x => x.Action(It.IsAny<UrlActionContext>()))
+		         .Returns("Test/Page1")
+		         .Returns("Test/Page2")
+		         .Returns("Test/Page3");
 
 		var urlHelperFactory = new Mock<IUrlHelperFactory>();
 		urlHelperFactory.Setup( f => f.GetUrlHelper( It.IsAny<ActionContext>() ) )
 		                .Returns( urlHelper.Object );
 
-		var viewCOntext = new Mock<ViewContext>();
+		var viewContext = new Mock<ViewContext>();
 		
 		PageLinkTagHelper helper = new( urlHelperFactory.Object )
 		{
@@ -34,7 +34,7 @@ public class PageLinkHelperTests
 				TotalItems = 28,
 				ItemsPerPage = 10
 			},
-		ViewContext = viewCOntext.Object,
+		ViewContext = viewContext.Object,
 			PageAction = "Test"
 		};
 		TagHelperContext ctx = new(new TagHelperAttributeList(),
@@ -53,8 +53,7 @@ public class PageLinkHelperTests
 		
 		//Assert
 		Assert.Equal(@"<a href=""Test/Page1"">1</a>"
-			+ @"<a href=""Test/Page2"">2</a>"
-		             + @"<a href=""Test/Page3"">3</a>",
-			output.Content.GetContent());
+		           + @"<a href=""Test/Page2"">2</a>",
+		output.Content.GetContent());
 	}
 }
