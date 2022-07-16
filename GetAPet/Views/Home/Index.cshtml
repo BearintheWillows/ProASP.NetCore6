@@ -3,17 +3,24 @@
     ViewData[ "Title" ] = "Get A Pet!";
 }
 
-@foreach ( var pet in Model.Pets ?? Enumerable.Empty<Pet>() )
+@foreach ( var pet in Model?.Pets ?? Enumerable.Empty<Pet>() )
 {
-    <div>
-        <h2>@pet.Name</h2>
-        <h3>@pet.Breed</h3>
-        <h3>@pet.Color</h3>
-        <h3>@pet.Notes</h3>
-        <h4>@pet.Price.ToString("C")</h4>
-    </div>
+    <div class="card card-outline-primary" m-1 mb-2 p-1>
+        <div class="bg-faded p-1">
+            <h4>
+                @pet.Name
+                <span class="badge rounded-pill bg-primary text-white" style="float:right">
+                    <small>@pet.Price.ToString("C")</small>
+                </span>
+            </h4>
+        </div>
+        <div class="card-text p-1">Breed: @pet.Breed</div>
+        <div class="card-text p-1">Colour: @pet.Color</div>
+        <div class="card-text p-1">Notes: @pet.Notes</div>
+    </div>    
 }
 
-<div page-model="@Model?.PagingInfo" page-action="Index">
-    
+<div page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true"
+ page-class="btn" page-class-normal="btn-outline-dark"
+ page-class-selected="btn-primary" class="btn-group pull-right m-1">
 </div>
