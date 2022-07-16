@@ -5,19 +5,7 @@
 
 @foreach ( var pet in Model?.Pets ?? Enumerable.Empty<Pet>() )
 {
-    <div class="card card-outline-primary" m-1 mb-2 p-1>
-        <div class="bg-faded p-1">
-            <h4>
-                @pet.Name
-                <span class="badge rounded-pill bg-primary text-white" style="float:right">
-                    <small>@pet.Price.ToString("C")</small>
-                </span>
-            </h4>
-        </div>
-        <div class="card-text p-1">Breed: @pet.Breed</div>
-        <div class="card-text p-1">Colour: @pet.Color</div>
-        <div class="card-text p-1">Notes: @pet.Notes</div>
-    </div>    
+    <partial name="PetListSummary" model="pet"/>  
 }
 
 <div page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true"
