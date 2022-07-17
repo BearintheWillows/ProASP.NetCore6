@@ -1,0 +1,15 @@
+@model IEnumerable<string>
+
+<div class="d-grid gap-2">
+    <a class="btn btn-outline-secondary"
+       asp-action="Index" asp-controller="Home"
+       asp-route-species=""
+       asp-route-currentPage="1">Home</a>
+    @foreach ( string species in Model ?? Enumerable.Empty<string>() )
+    {
+        <a class="btn btn-outline-secondary"
+           asp-action="Index" asp-controller="Home"
+           asp-route-species="@species"
+           asp-route-currentPage="1">@species</a>
+    }
+</div>

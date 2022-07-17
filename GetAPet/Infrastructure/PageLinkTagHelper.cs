@@ -43,6 +43,7 @@ public class PageLinkTagHelper : TagHelper
 			for ( int i = 1; i < PageModel.TotalPages; i++ )
 			{
 				TagBuilder tag = new("a");
+				PageUrlValues["currentPage"] = i;
 				tag.Attributes["href"] = urlHelper.Action(PageAction,
 				                                          PageUrlValues);
 				if ( PageClassesEnabled )

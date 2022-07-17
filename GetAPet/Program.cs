@@ -31,7 +31,7 @@ app.UseStaticFiles();
 //app.UseRouting();
 
 // / or /Index - Lists first page of products for all categories
-app.MapControllerRoute("pagination", "Pets/Page-{currentPage}", 
+app.MapControllerRoute("pagination", "Pets/Page{currentPage}", 
                        new { Controller = "Home", action = "Index" });
 // /Page{currentPage} - Lists the specified page, showing items from all categories
 app.MapControllerRoute("page", "Page{currentPage:int}", 
