@@ -25,7 +25,9 @@ public class HomeController : Controller
 		                  .Take( PageSize ),
 		PagingInfo = new PagingInfo
 			{
-			CurrentPage = currentPage, ItemsPerPage = PageSize, TotalItems = _repository.Pets.Count()
+			CurrentPage = currentPage, 
+			ItemsPerPage = PageSize, 
+			TotalItems = species == null ? _repository.Pets.Count() : _repository.Pets.Count( p => p.Species == species )
 			},
 		CurrentSpecies = species
 		});

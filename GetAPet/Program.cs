@@ -30,18 +30,18 @@ app.UseStaticFiles();
 
 //app.UseRouting();
 
-// / or /Index - Lists first page of products for all categories
-app.MapControllerRoute("pagination", "Pets/Page{currentPage}", 
-                       new { Controller = "Home", action = "Index" });
+// /Dog/Page{currentPage} - Lists the specified page, showing items from the "Dog" category
+app.MapControllerRoute( "speciesPage", "{species}/Page{currentPage:int}",
+                        new {Controller = "Home", action = "Index"});
 // /Page{currentPage} - Lists the specified page, showing items from all categories
 app.MapControllerRoute("page", "Page{currentPage:int}", 
 					   new { Controller = "Home", action = "Index", currentPage = 1 });
 // /Dog - Lists first page of products for the "Dog" category
 app.MapControllerRoute( "species", "{species}",
                         new { Controller = "Home", action = "Index", currentPage = 1 } );
-// /Dog/Page{currentPage} - Lists the specified page, showing items from the "Dog" category
-app.MapControllerRoute( "specpage", "{species}/Page{currentPage:int}",
-						new {Controller = "Home", action = "Index"});
+// / or /Index - Lists first page of products for all categories
+app.MapControllerRoute("pagination", "Pets/Page{currentPage}", 
+                       new { Controller = "Home", action = "Index", currentPage = 1 });
 
 app.MapDefaultControllerRoute();
 SeedData.EnsurePopulated(app);
