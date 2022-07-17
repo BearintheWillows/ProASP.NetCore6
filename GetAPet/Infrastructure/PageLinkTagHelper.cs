@@ -23,6 +23,9 @@ public class PageLinkTagHelper : TagHelper
 	public PagingInfo? PageModel { get;   set; }
 	public string? PageAction { get; set; }
 	
+	[HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
+	public Dictionary<string, object> PageUrlValues { get; set; } = new();
+
 	public bool PageClassesEnabled { get; set; } = false;
 	public string PageClass { get; set; } = String.Empty;
 	public string PageClassNormal { get; set; } = String.Empty;
@@ -41,7 +44,7 @@ public class PageLinkTagHelper : TagHelper
 			{
 				TagBuilder tag = new("a");
 				tag.Attributes["href"] = urlHelper.Action(PageAction,
-				                                          new { currentPage = i });
+				                                          PageUrlValues);
 				if ( PageClassesEnabled )
 				{
 					tag.AddCssClass(PageClass);

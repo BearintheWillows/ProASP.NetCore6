@@ -1,6 +1,7 @@
 using GetAPet.Data;
 using GetAPet.Models;
 using GetAPet.Models.Repository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder( args );
@@ -29,9 +30,18 @@ app.UseStaticFiles();
 
 //app.UseRouting();
 
-
+// / or /Index - Lists first page of products for all categories
 app.MapControllerRoute("pagination", "Pets/Page-{currentPage}", 
                        new { Controller = "Home", action = "Index" });
+// /Page{currentPage} - Lists the specified page, showing items from all categories
+app.MapControllerRoute("page", "Page{currentPage:int}", 
+					   new { Controller = "Home", action = "Index", currentPage = 1 });
+// /Dog - Lists first page of products for the "Dog" category
+app.MapControllerRoute( "species", "{species}",
+                        new { Controller = "Home", action = "Index", currentPage = 1 } );
+// /Dog/Page{currentPage} - Lists the specified page, showing items from the "Dog" category
+app.MapControllerRoute( "specpage", "{species}/Page{currentPage:int}",
+						new {Controller = "Home", action = "Index"});
 
 app.MapDefaultControllerRoute();
 SeedData.EnsurePopulated(app);

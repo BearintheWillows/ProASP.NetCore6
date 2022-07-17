@@ -16,15 +16,17 @@ public class HomeController : Controller
 		_repository = repository;
 	}
 
-	public ViewResult Index(int currentPage = 1) => View( new PetListViewModel()
+	public ViewResult Index(string? species, int currentPage = 1) => View( new PetListViewModel()
+		{
+		Pets = _repository.Pets
+		                  .Where( p => species == null || p.Species == species)
+		                  .OrderBy( p => p.Id )
+		                  .Skip( ( currentPage - 1 ) * PageSize )
+		                  .Take( PageSize ),
+		PagingInfo = new PagingInfo
 			{
-			Pets = _repository.Pets.OrderBy( p => p.Id )
-			                  .Skip( ( currentPage - 1 ) * PageSize )
-			                  .Take( PageSize ),
-			PagingInfo = new PagingInfo
-				{
-				CurrentPage = currentPage, ItemsPerPage = PageSize, TotalItems = _repository.Pets.Count()
-				},
-			}
-	);
+			CurrentPage = currentPage, ItemsPerPage = PageSize, TotalItems = _repository.Pets.Count()
+			},
+		CurrentSpecies = species
+		});
 }

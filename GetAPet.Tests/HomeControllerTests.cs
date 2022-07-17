@@ -25,7 +25,7 @@ public class HomeControllerTests
 		
 		//Act
 		PetListViewModel result =
-			controller.Index()?.ViewData.Model as PetListViewModel ?? new();
+			controller.Index(null)?.ViewData.Model as PetListViewModel ?? new();
 		
 		//Assert
 		Pet[] pets = result.Pets.ToArray();
@@ -52,7 +52,7 @@ public class HomeControllerTests
 		controller.PageSize = 3;
 		
 		// Act
-		PetListViewModel result = controller.Index( 2 )?.ViewData.Model
+		PetListViewModel result = controller.Index( null, 2 )?.ViewData.Model
 			as PetListViewModel ?? new();
 		
 		//Assert
@@ -79,7 +79,7 @@ public class HomeControllerTests
 		HomeController controller = new( mock.Object ) {PageSize = 3 };
 		
 		//Act
-		PetListViewModel result = controller.Index( 2 )?.ViewData.Model
+		PetListViewModel result = controller.Index(null, 2 )?.ViewData.Model
 			as PetListViewModel ?? new();
 		
 		//Assert
@@ -89,6 +89,33 @@ public class HomeControllerTests
 		Assert.Equal( 5, pageInfo.TotalItems );
 		Assert.Equal(2, pageInfo.TotalPages);
 	}
-	
+
+	[Fact]
+	public void CanFilterPets()
+	{
+		// Arrange
+		// - Create the mock repository
+		Mock<IAppRepository> mock = new();
+		mock.Setup(m => m.Pets).Returns((new Pet[]
+			{
+			new Pet {Id = 1, Name = "Fido", Species = "Dog"},
+			new Pet {Id = 2, Name = "Buddy", Species = "Dog"},
+			new Pet {Id = 3, Name = "Spot", Species = "Dog"},
+			new Pet {Id = 4, Name = "Scooby", Species = "Cat"},
+			new Pet {Id = 5, Name = "Scrappy", Species = "Cat"},
+			}.AsQueryable<Pet>()));
+			
+		//	Arrange - create a controller and make the page size 3 items
+		HomeController controller = new(mock.Object);
+		controller.PageSize = 3;
+		
+		//Action
+		Pet[] result = ( controller.Index( "Cat", 1 )?.ViewData.Model as PetListViewModel ?? new() ).Pets.ToArray();
+		
+		//Assert
+		Assert.Equal(2, result.Length);
+		Assert.True( result[0].Name == "Scooby" && result[0].Species == "Cat" );
+		Assert.True( result[1].Name == "Scrappy" && result[1].Species == "Cat" );
+	}
 	
 }

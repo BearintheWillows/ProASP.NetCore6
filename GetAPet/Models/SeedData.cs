@@ -100,6 +100,33 @@ public static class SeedData
 				                       Color = "Black",
 				                       Notes = "Jack is back",
 				                       Price = 100.00m,
+				                       },
+			                       new Pet
+				                       {
+				                       Name = "Joowah",
+				                       Species = "Cat",
+				                       Breed = "Siamese",
+				                       Color = "Black",
+				                       Notes = "Joowah is a very good cat.",	
+				                       Price = 150.00m,
+				                       },
+			                       new Pet
+				                       {
+				                       Name = "Leo",
+				                       Species = "Cat",
+				                       Breed = "TortoiseShell",
+				                       Color = "Giner",
+				                       Notes = "Leo the lion",
+				                       Price = 50.00m,
+				                       },
+			                       new Pet
+				                       {
+				                       Name = "Jackey",
+				                       Species = "Horse",
+				                       Breed = "Stallion",
+				                       Color = "Black",
+				                       Notes = "Jackey is a very good horse.",
+				                       Price = 250.00m,
 				                       }
 			);
 		}
