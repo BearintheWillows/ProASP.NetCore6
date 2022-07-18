@@ -15,6 +15,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddScoped<IAppRepository, EFAppRepository>();
 
 builder.Services.AddRazorPages();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -29,6 +31,7 @@ if ( !app.Environment.IsDevelopment() )
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 
 //app.UseRouting();
 
