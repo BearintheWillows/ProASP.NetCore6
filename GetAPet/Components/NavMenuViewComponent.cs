@@ -13,11 +13,7 @@ public class NavMenuViewComponent : ViewComponent
 
 	public IViewComponentResult Invoke()
 	{
-		ViewBag.SelectedSpecies = RouteData.Values[ "species" ];
-		if (ViewBag.SelectedSpecies != null)
-		{
-			Console.WriteLine("Viewbag = " + RouteData.Values["species"]);
-		}
+		ViewBag.SelectedSpecies = RouteData?.Values[ "species" ];
 		return View( _repository.Pets
 		                        .Select( p => p.Species )
 		                        .Distinct()

@@ -60,7 +60,7 @@ public class NavMenuViewComponentTests
 		
 		//Action 
 		string? result = (string?)(target.Invoke()
-			as ViewViewComponentResult)?.ViewData?["SelectedCategory"];
+			as ViewViewComponentResult)?.ViewData?["SelectedSpecies"];
 		
 		//Assert
 		Assert.Equal(speciesToSelect, result);

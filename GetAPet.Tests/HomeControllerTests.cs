@@ -117,5 +117,39 @@ public class HomeControllerTests
 		Assert.True( result[0].Name == "Scooby" && result[0].Species == "Cat" );
 		Assert.True( result[1].Name == "Scrappy" && result[1].Species == "Cat" );
 	}
+
+	[Fact]
+	public void GenerateSpeciesSpecificProductCount()
+	{
+		//Arrange
+		Mock<IAppRepository> mock = new();
+		mock.Setup(m => m.Pets).Returns((new Pet[]
+			{
+			new Pet {Id = 1, Name = "Fido", Species = "Dog"},
+			new Pet {Id = 2, Name = "Buddy", Species = "Dog"},
+			new Pet {Id = 3, Name = "Spot", Species = "Horse"},
+			new Pet {Id = 4, Name = "Scooby", Species = "Cat"},
+			new Pet {Id = 5, Name = "Scrappy", Species = "Cat"},
+			}.AsQueryable<Pet>()));
+		
+		HomeController target = new(mock.Object);
+		target.PageSize = 3;
+
+		Func<ViewResult, PetListViewModel?> GetModel = result =>
+			result?.ViewData?.Model as PetListViewModel;
+		
+		//Action
+		int? res1 = GetModel(target.Index( "Dog" ))?.PagingInfo.TotalItems;
+		int? res2 = GetModel(target.Index( "Cat" ))?.PagingInfo.TotalItems;
+		int? res3 = GetModel(target.Index( "Horse" ))?.PagingInfo.TotalItems;
+		int? resAll = GetModel(target.Index( null ))?.PagingInfo.TotalItems;
+		
+		//Assert
+		Assert.Equal(2, res1);
+		Assert.Equal(2, res2);
+		Assert.Equal(1, res3);
+		Assert.Equal(5, resAll);
+		
+	}
 	
 }

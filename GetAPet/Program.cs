@@ -14,6 +14,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddScoped<IAppRepository, EFAppRepository>();
 
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,6 +46,7 @@ app.MapControllerRoute("pagination", "Pets/Page{currentPage}",
                        new { Controller = "Home", action = "Index", currentPage = 1 });
 
 app.MapDefaultControllerRoute();
+app.MapRazorPages();
 SeedData.EnsurePopulated(app);
 
 app.Run();
