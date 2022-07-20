@@ -35,4 +35,10 @@ public class Donate : PageModel
 		}
 		return RedirectToPage(new {returnUrl = returnUrl});
 	}
+
+	public IActionResult OnPostRemove(long Id, string returnUrl)
+	{
+		Cart.RemoveLine( Cart.Lines.First(cl => cl.Pet.Id == Id).Pet );
+		return RedirectToPage(new {returnUrl = returnUrl});
+	}
 }
