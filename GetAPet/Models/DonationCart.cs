@@ -4,7 +4,7 @@ public class DonationCart
 {
 	public List<CartLine> Lines { get; set; } = new List<CartLine>();
 
-	public void AddItem(Pet pet)
+	public virtual void AddItem(Pet pet)
 	{
 		CartLine? line = Lines
 		   .FirstOrDefault( p => p.Pet.Id == pet.Id );
@@ -19,11 +19,11 @@ public class DonationCart
 		}
 	}
 
-	public void RemoveLine(Pet pet) => Lines.RemoveAll( l => l.Pet.Id == pet.Id );
+	public virtual void RemoveLine(Pet pet) => Lines.RemoveAll( l => l.Pet.Id == pet.Id );
 
 	public decimal ComputeTotalValue() => Lines.Sum( e => e.Pet.Price );
 	
-	public void Clear() => Lines.Clear();
+	public virtual void Clear() => Lines.Clear();
 }
 
 public class CartLine

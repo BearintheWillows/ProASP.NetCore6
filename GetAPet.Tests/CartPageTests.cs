@@ -26,30 +26,14 @@ public class CartPageTests
 		DonationCart cart = new DonationCart();
 		cart.AddItem(p1);
 		cart.AddItem(p2);
-		
-		//Create mock context and session
-		Mock<ISession> mockSession = new Mock<ISession>();
-		byte[] data = Encoding.UTF8.GetBytes( JsonSerializer.Serialize( cart ) );
-		mockSession.Setup( m => m.TryGetValue( It.IsAny<string>(), out data ) );
-		Mock<HttpContext> mockContext = new Mock<HttpContext>();
-		mockContext.Setup( m => m.Session ).Returns( mockSession.Object );
-		
+
 		//Action
-		Donate donatePage = new Donate( mockRepo.Object )
-			{
-			PageContext = new PageContext( new ActionContext
-					{
-					HttpContext = mockContext.Object,
-					RouteData = new(),
-					ActionDescriptor = new PageActionDescriptor()
-					}
-			)
-			};
-		donatePage.OnGet("myUrl");
+		Donate cartModel = new(mockRepo.Object, cart);
+		cartModel.OnGet("myUrl");
 		
 		//Assert
-		Assert.Equal(2, donatePage.Cart.Lines.Count);
-		Assert.Equal("myUrl", donatePage.ReturnUrl);
+		Assert.Equal(2, cartModel.Cart.Lines.Count);
+		Assert.Equal("myUrl", cartModel.ReturnUrl);
 
 	}
 	
