@@ -7,17 +7,22 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/GetAPet.styles.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-sm  navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
             <span class="navbar-brand ml-2">Get A Pet</span>
-        </div>
+        <div class="col-6 navbar-text text-end">
+                        <vc:cart-summary/>
+                    </div>
+            </div>
     </nav>
 </header>
 <div class="container">
+
     <div class="row m-1 p-1">
         <div id="species" class="col-3">
             <vc:nav-menu/>

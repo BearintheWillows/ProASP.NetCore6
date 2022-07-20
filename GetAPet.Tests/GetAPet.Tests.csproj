@@ -28,4 +28,8 @@
       <ProjectReference Include="..\GetAPet\GetAPet.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Pages\Components\CartSummary\Default.cshtml" />
+    </ItemGroup>
+
 </Project>
