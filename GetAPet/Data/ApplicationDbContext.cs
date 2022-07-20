@@ -10,7 +10,8 @@ public class ApplicationDbContext : DbContext
 
 
 
-	public DbSet<Pet> Pets => Set<Pet>();
+	public DbSet<Pet>   Pets   => Set<Pet>();
+	public DbSet<Order> Orders => Set<Order>();
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
