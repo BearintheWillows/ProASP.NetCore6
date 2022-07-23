@@ -1,0 +1,33 @@
+@page "/admin/orders"
+@using GetAPet.Models.Repository
+@inherits OwningComponentBase<IOrderRepository>
+<DonationTable TableTitle="Not Completed Donations"
+            Orders="NotCompleted" ButtonLabel="Complete" OrderSelected="CompleteDonation" />
+<DonationTable TableTitle="Shipped Orders"
+            Orders="Completed" ButtonLabel="Reset" OrderSelected="ResetDonation" />
+<button class="btn btn-info" @onclick="@(e => UpdateData())">Refresh Data</button>
+@code {
+    public IOrderRepository Repository => Service;
+    public IEnumerable<Order> AllOrders { get; set; } = Enumerable.Empty<Order>();
+    public IEnumerable<Order> NotCompleted { get; set; }
+        = Enumerable.Empty<Order>();
+    public IEnumerable<Order> Completed { get; set; }
+        = Enumerable.Empty<Order>();
+    protected async override Task OnInitializedAsync() {
+        await UpdateData();
+    }
+    public async Task UpdateData() {
+        AllOrders = await Repository.Orders.ToListAsync();
+        NotCompleted = AllOrders.Where(o => !o.ReceivedDonation);
+        Completed = AllOrders.Where(o => o.ReceivedDonation);
+    }
+    public void CompleteDonation(int id) => UpdateOrder(id, true);
+    public void ResetDonation(int id) => UpdateOrder(id, false);
+    private void UpdateOrder(int id, bool donationValue) {
+        Order? o = Repository.Orders.FirstOrDefault(o => o.OrderID == id);
+        if (o != null) {
+            o.ReceivedDonation = donationValue;
+            Repository.SaveOrder(o);
+        }
+    }
+}

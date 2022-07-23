@@ -13,12 +13,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 	options => options.UseSqlServer( builder.Configuration["ConnectionStrings:DefaultConnection"]));
 
 builder.Services.AddScoped<IAppRepository, EFAppRepository>();
+builder.Services.AddScoped<IOrderRepository, EFOrderRepository>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddScoped<DonationCart>(sp => SessionCart.GetCart(sp));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddServerSideBlazor();
 
 var app = builder.Build();
 
@@ -52,6 +54,8 @@ app.MapControllerRoute("pagination", "Pets/Page{currentPage}",
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
+app.MapBlazorHub();
+app.MapFallbackToPage( "/admin/{*catchall}", "/Admin/Index" );
 SeedData.EnsurePopulated(app);
 
 app.Run();

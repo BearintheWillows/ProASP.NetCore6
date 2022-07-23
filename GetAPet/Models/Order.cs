@@ -31,4 +31,7 @@ public class Order
 	
 	public bool GiftAid { get; set; }
 	
+	[BindNever]
+	public bool ReceivedDonation { get; set; }
+	
 }

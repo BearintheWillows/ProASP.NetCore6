@@ -1,0 +1,59 @@
+@page "/admin/pets"
+@page "/admin"
+@using GetAPet.Models.Repository
+@inherits OwningComponentBase<IAppRepository>
+<table class="table table-sm table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th><th>Name</th>
+        <th>Species</th><th>Price</th><td/>
+    </tr>
+    </thead>
+    <tbody>
+    @if (PetData?.Count() > 0) {
+        @foreach (Pet p in PetData) {
+            <tr>
+                <td>@p.Id</td>
+                <td>@p.Name</td>
+                <td>@p.Species</td>
+                <td>@p.Price.ToString("c")</td>
+                <td>
+                    <NavLink class="btn btn-info btn-sm"
+                             href="@GetDetailsUrl(p.Id ?? 0 )">
+                        Details
+                    </NavLink>
+                    <NavLink class="btn btn-warning btn-sm"
+                             href="@GetEditUrl(p.Id ?? 0)">
+                        Edit
+                    </NavLink>
+                </td>
+            </tr>
+        }
+    } else {
+        <tr>
+            <td colspan="5" class="text-center">No Pets</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<NavLink class="btn btn-primary" href="/admin/pets/create">Create</NavLink>
+
+@code {
+    public IAppRepository Repository => Service;
+
+    public IEnumerable<Pet> PetData { get; set; }
+        = Enumerable.Empty<Pet>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UpdateData();
+    }
+
+    public async Task UpdateData()
+    {
+        PetData = await Repository.Pets.ToListAsync();
+    }
+
+    public string GetDetailsUrl(long id) => $"/admin/pets/details/{id}";
+    public string GetEditUrl(long id) => $"/admin/pets/edit/{id}";
+}
