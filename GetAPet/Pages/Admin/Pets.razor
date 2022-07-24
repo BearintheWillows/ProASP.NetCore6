@@ -26,6 +26,9 @@
                              href="@GetEditUrl(p.Id ?? 0)">
                         Edit
                     </NavLink>
+                    <button class="btn btn-danger btn-sm" @onclick="@(e => DeletePet(p))">
+                        Delete
+                    </button>
                 </td>
             </tr>
         }
@@ -54,6 +57,12 @@
     public async Task UpdateData()
     {
         PetData = await Repository.Pets.ToListAsync();
+    }
+
+    public async Task DeletePet(Pet p)
+    {
+        Repository.DeletePet(p);
+        await UpdateData();
     }
 
     public string GetDetailsUrl(long id) => $"/admin/pets/details/{id}";
