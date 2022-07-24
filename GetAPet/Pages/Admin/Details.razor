@@ -31,6 +31,6 @@
     {
         Pet = ApiClient?.Pets.FirstOrDefault(p => p.Id == Id);
     }
-    public string EditUrl => $"/admin/edit/{Pet?.Id}";
+    public string EditUrl => $"/admin/pets/edit/{Pet?.Id}";
     
 }
