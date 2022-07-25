@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GetAPet.Pages.Admin;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
+[Authorize]
 public class IdentityUsers : PageModel
 {
 	private UserManager<IdentityUser> _userManager;
