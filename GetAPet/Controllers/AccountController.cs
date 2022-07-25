@@ -46,8 +46,8 @@ public class AccountController : Controller
 		return View( loginModel );
 	}
 
-	[Authorize]
-		async Task<RedirectResult> Logout(string returnUrl = "/")
+		[Authorize]
+		public async Task<RedirectResult> Logout(string returnUrl = "/")
 		{
 			await _signInManager.SignOutAsync();
 			return Redirect( returnUrl );
