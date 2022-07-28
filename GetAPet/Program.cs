@@ -34,6 +34,19 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 var app = builder.Build();
 
+if ( app.Environment.IsProduction() )
+{
+	app.UseExceptionHandler( "/error" );
+}
+
+app.UseRequestLocalization( opts =>
+	{
+		opts.AddSupportedUICultures( "en-ES" )
+		    .AddSupportedUICultures( "es-ES" )
+		    .SetDefaultCulture( "en-ES" );
+	}
+);
+
 // Configure the HTTP request pipeline.
 if ( !app.Environment.IsDevelopment() )
 {
