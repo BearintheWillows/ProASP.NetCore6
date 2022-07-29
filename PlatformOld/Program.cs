@@ -1,0 +1,23 @@
+using Microsoft.Extensions.Options;
+using Platform;
+using Platform.Services;
+using Platform.Services.Interfaces;
+
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+app.UseMiddleware<WeatherMiddleware>();
+	
+IResponseFormatter formatter = new TextResponseFormatter();
+
+
+app.MapGet("middleware/function", async (context) => {
+	await TextResponseFormatter.Singleton.Format(context, "Middleware Function: It is snowing in Chicago");
+});
+
+app.MapGet("endpoint/class", WeatherEndpoint.Endpoint);
+app.MapGet("endpoint/function", async context => {
+	await context.Response.WriteAsync("Endpoint Function: It is sunny in LA");
+});
+
+app.Run();
