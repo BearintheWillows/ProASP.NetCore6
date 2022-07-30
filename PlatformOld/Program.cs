@@ -12,7 +12,7 @@ IResponseFormatter formatter = new TextResponseFormatter();
 
 
 app.MapGet("middleware/function", async (context) => {
-	await TextResponseFormatter.Singleton.Format(context, "Middleware Function: It is snowing in Chicago");
+	await TypeBroker.Formatter.Format(context, "Middleware Function: It is snowing in Chicago");
 });
 
 app.MapGet("endpoint/class", WeatherEndpoint.Endpoint);
