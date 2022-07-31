@@ -1,26 +1,32 @@
-using Microsoft.Extensions.Options;
 using Platform;
-using Platform.Services;
-using Platform.Services.Extensions;
-using Platform.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IResponseFormatter, GuidService>();
+var servicesConfig = builder.Configuration;
+// - Use config settings to set up services
+
+builder.Services.Configure<MessageOptions>( servicesConfig.GetSection("Location") );
 
 var app = builder.Build();
 
-app.UseMiddleware<WeatherMiddleware>();
+var pipelineConfig = app.Configuration;
+// - use config settngs to set up pipeline
 
-app.MapGet("middleware/function", async (HttpContext context, IResponseFormatter formatter) => {
-	await formatter.Format(context, "Middleware Function: It is snowing in Chicago");
-});
+app.UseMiddleware<LocationMiddleware>();
 
-//app.MapGet( "endpoint/class" );
-app.MapEndpoint<WeatherEndpoint>( "endpoint/class"  );
+app.MapGet( "config",
+            async (HttpContext context, IConfiguration config) =>
+            {
+	            string defaultDebug = config[ "Logging:LogLevel:Default" ];
+	            await context.Response.WriteAsync( $"The config setting is: {defaultDebug}" );
+            }
+);
 
-app.MapGet("endpoint/function", async (HttpContext context, IResponseFormatter formatter) => {
-	await formatter.Format(context, "Endpoint Function: It is sunny in LA");
-});
+app.MapGet( "/",
+            async context =>
+            {
+	            await context.Response.WriteAsync( "Heyooo" );
+            }
+);
 
 app.Run();
