@@ -6,7 +6,7 @@ using Platform.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddTransient<IResponseFormatter, GuidService>();
+builder.Services.AddSingleton<IResponseFormatter, GuidService>();
 
 var app = builder.Build();
 
