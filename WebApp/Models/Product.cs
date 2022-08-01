@@ -13,6 +13,6 @@ public class Product
 	public long CategoryId { get; set; }
 	public Category? Category { get; set; }
 	
-	public long? SupplierId { get; set; }
+	public long SupplierId { get; set; }
 	public Supplier? Supplier { get; set; }
 }
