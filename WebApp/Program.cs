@@ -14,28 +14,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(opts => {
 		                  "ConnectionStrings:ProductConnection"]);
 	opts.EnableSensitiveDataLogging(true);
 });
-builder.Services.AddControllers().AddNewtonsoftJson().
-        AddXmlDataContractSerializerFormatters();
-builder.Services.Configure<MvcNewtonsoftJsonOptions>(opts => {
-	opts.SerializerSettings.NullValueHandling
-		= Newtonsoft.Json.NullValueHandling.Ignore;
-});
-builder.Services.Configure<MvcOptions>(opts => {
-	opts.RespectBrowserAcceptHeader = true;
-	opts.ReturnHttpNotAcceptable = true;
-});
-builder.Services.AddSwaggerGen(c => {
-	c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApp", Version = "v1" });
-});
-var app = builder.Build();
+builder.Services.AddControllersWithViews();
 
+var app = builder.Build();
+app.UseStaticFiles();
 app.MapControllers();
-app.MapGet("/", () => "Hello World!");
-app.UseSwagger();
-app.UseSwaggerUI(options => {
-	options.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApp");
-});
+
+app.MapDefaultControllerRoute();
+
 var context = app.Services.CreateScope().ServiceProvider
                  .GetRequiredService<ApplicationDbContext>();
 SeedData.SeedDatabase(context);
+
 app.Run();
