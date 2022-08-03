@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
@@ -15,11 +16,20 @@ builder.Services.AddDbContext<ApplicationDbContext>(opts => {
 	opts.EnableSensitiveDataLogging(true);
 });
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(opts => {
-	opts.Cookie.IsEssential = true;
-});
+builder.Services.AddSession( opts =>
+	{
+		opts.Cookie.IsEssential = true;
+	}
+);
+
+builder.Services.Configure<RazorPagesOptions>( opts =>
+	{
+		opts.Conventions.AddPageRoute( "/Index", "/extra/page/{id:long}" );
+	}
+);
 
 var app = builder.Build();
 app.UseStaticFiles();
@@ -29,6 +39,7 @@ app.UseSession();
 app.MapControllers();
 
 app.MapDefaultControllerRoute();
+app.MapRazorPages();
 
 var context = app.Services.CreateScope().ServiceProvider
                  .GetRequiredService<ApplicationDbContext>();
