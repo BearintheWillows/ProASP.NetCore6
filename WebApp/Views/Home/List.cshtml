@@ -13,9 +13,7 @@
         </thead>
         <tbody>
         @foreach (Product p in Model ?? Enumerable.Empty<Product>()) {
-            <tr>
-                <td>@p.Name</td><td>@p.Price</td>
-            </tr>
+            <partial name="_RowPartial" model="p"/>
         }
         </tbody>
     </table>

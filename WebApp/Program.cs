@@ -16,8 +16,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(opts => {
 });
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(opts => {
+	opts.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 app.UseStaticFiles();
+
+app.UseSession();
+
 app.MapControllers();
 
 app.MapDefaultControllerRoute();
