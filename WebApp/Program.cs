@@ -31,6 +31,8 @@ builder.Services.Configure<RazorPagesOptions>( opts =>
 	}
 );
 
+builder.Services.AddSingleton<CitiesData>();
+
 var app = builder.Build();
 app.UseStaticFiles();
 
