@@ -1,0 +1,29 @@
+@page "/pages/form/{id:long?}"
+@model FormHandlerModel
+@using Microsoft.AspNetCore.Mvc.RazorPages
+<div class="m-2">
+    <h5 class="bg-primary text-white text-center p-2">HTML Form</h5>
+    <form asp-page="FormHandler" method="post" id="htmlform">
+        <div class="form-group">
+            <label>Name</label>
+            @* ReSharper disable once CSharpWarnings::CS8602 *@
+            <input class="form-control" asp-for="Product.Name" />
+            </div>
+            <div class="form-group">
+            <label>Price</label>
+                @* ReSharper disable once CSharpWarnings::CS8602 *@
+                <input class="form-control" asp-for="Product.Price" />
+            </div>
+            <div class="form-group">
+            <label>Category</label>
+                @* ReSharper disable once CSharpWarnings::CS8602 *@
+                <input class="form-control" asp-for="Product.Category.Name" />
+            </div>
+            <div class="form-group">
+            <label>Supplier</label>
+                @* ReSharper disable once CSharpWarnings::CS8602 *@
+                <input class="form-control" asp-for="Product.Supplier.Name" />
+            </div>
+        <button form="htmlform" asp-page="FormHandlerModel" class="btn btn-primary mt-2"> outside Form</button>
+    </form>
+</div>
