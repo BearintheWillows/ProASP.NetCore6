@@ -1,9 +1,12 @@
 namespace WebApp.Controllers;
 
+using System.Globalization;
 using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Models;
+
 [AutoValidateAntiforgeryToken]
 public class FormController : Controller
 {
@@ -23,12 +26,11 @@ public class FormController : Controller
 	}
 
 	[HttpPost]
-	public IActionResult SubmitForm()
+	public IActionResult SubmitForm([Bind("Name", "Category")] Product product)
 	{
-		foreach ( string key in Request.Form.Keys)
-		{
-			TempData[key] = string.Join(", ", Request.Form[key] );
-		}
+		TempData["name"] = product.Name;
+		TempData[ "price" ] = product.Price.ToString();
+		TempData[ "category name" ] = product.Category?.Name;
 		return RedirectToAction(nameof(Results));
 	}
 	public IActionResult Results()

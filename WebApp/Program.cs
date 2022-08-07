@@ -1,13 +1,6 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Antiforgery;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 using WebApp.Data;
-using WebApp.Middleware;
 using WebApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,33 +1,22 @@
 @model Product
 @{ Layout = "_SimpleLayout"; }
 <h5 class="bg-primary text-white text-center p-2">HTML Form</h5>
-<form asp-action="SubmitForm" method="post" id="htmlform">
-    
-    <div class="form-group">
-        <label asp-for="ProductId">Id</label>
-        <input asp-for="ProductId" class="form-control">
-    </div>
-    <div class="form-group">
-        <label asp-for="Name">Name</label>
-        <input class="form-control" asp-for="Name" value="@Model?.Name"/>
-    </div>
-    <div class="form-group">
-        <label asp-for="Price">Price</label>
-        <input asp-for="Price" asp-format="{0:#,###.00}" class="form-control">
-    </div>
-    <div class="form-group">
-        @* ReSharper disable once CSharpWarnings::CS8602 *@
-        <label asp-for="Category.Name">Category</label>
-        <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories">
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="Supplier.Name">Supplier</label>
-        <textarea asp-for="Supplier.Name" class="form-control"></textarea>
-        @* ReSharper disable once CSharpWarnings::CS8602 *@
-    </div>
-
+<form asp-action="submitform" method="post" id="htmlform">
+ <div class="form-group">
+ <label asp-for="Name"></label>
+ <input class="form-control" asp-for="Name" />
+ </div>
+ <div class="form-group">
+  <label asp-for="Price"></label>
+  <input class="form-control" asp-for="Price" />
+ </div>
+ <div class="form-group">
+  <label>Category Name</label>
+  
+  @* ReSharper disable once CSharpWarnings::CS8602 *@
+  <input class="form-control" asp-for="Category.Name"
+  value="@Model.Category.Name" />
+ </div>
+ 
+ <button type="submit" class="btn btn-primary mt-2">Submit</button>
 </form>
-
-
-<button form="htmlform" asp-action="SubmitForm" class="btn btn-primary mt-2">Submit (Outside Form)</button>

@@ -13,17 +13,16 @@ public class FormHandlerModel : PageModel
 	public FormHandlerModel(ApplicationDbContext dbContext) {
 		_context = dbContext;
 	}
-	public Product? Product { get; set; }
+
+	[BindProperty]
+	public Product  Product { get; set; } = new();
 	public async Task OnGetAsync(long id = 1)
 	{
 		Product = await _context.Products.Include( p => p.Category )
 		                        .Include( p => p.Supplier ).FirstAsync( p => p.ProductId == id );
 	}
 	public IActionResult OnPost() {
-		foreach (string key in Request.Form.Keys
-		                              .Where(k => !k.StartsWith("_"))) {
-			TempData[key] = string.Join(", ", Request.Form[key]);
-		}
+		TempData["product"] = System.Text.Json.JsonSerializer.Serialize(Product);
 		return RedirectToPage("FormResults");
 	}
 }
