@@ -1,40 +1,37 @@
 namespace WebApp.Controllers;
 
-using System.Globalization;
-using Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Models;
+using Microsoft.EntityFrameworkCore;
+using Data;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 [AutoValidateAntiforgeryToken]
-public class FormController : Controller
-{
-	private ApplicationDbContext _context;
-	
-	public FormController(ApplicationDbContext context)
-	{
-		_context = context;
+	public class FormController : Controller {
+		private ApplicationDbContext _context;
+		public FormController(ApplicationDbContext dbContext) {
+			_context = dbContext;
+		}
+		public async Task<IActionResult> Index(long? id) {
+			return View("Form", await _context.Products
+			                                 .FirstOrDefaultAsync(p => id == null || p.ProductId == id));
+		}
+		[HttpPost]
+		public IActionResult SubmitForm(Product product) {
+			
+			if ( ModelState.IsValid )
+			{
+				TempData[ "name" ] = product.Name;
+				TempData[ "price" ] = product.Price.ToString();
+				TempData[ "categoryId" ] = product.CategoryId.ToString();
+				TempData[ "supplierId" ] = product.SupplierId.ToString();
+				return RedirectToAction( nameof(Results) );
+			} else
+			{
+				return View( "Form" );
+			}
+		}
+		public IActionResult Results() {
+			return View(TempData);
+		}
 	}
-	
-	public async Task<IActionResult> Index(long id = 1)
-	{
-		ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "Name");
-		return View("Form", await _context.Products.Include( p => p.Category )
-		                                  .Include( p => p.Supplier )
-		                                  .FirstAsync( p => p.ProductId == id ));
-	}
-
-	[HttpPost]
-	public IActionResult SubmitForm([Bind("Name", "Category")] Product product)
-	{
-		TempData["name"] = product.Name;
-		TempData[ "price" ] = product.Price.ToString();
-		TempData[ "category name" ] = product.Category?.Name;
-		return RedirectToAction(nameof(Results));
-	}
-	public IActionResult Results()
-	{
-		return View();
-	}
-}
