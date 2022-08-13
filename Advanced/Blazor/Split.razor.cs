@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace Advanced.Blazor;
 
-public partial class Split {
+public partial class Split : ComponentBase{
+	
 	[Inject]
 	public DataContext? Context { get; set; }
 	public IEnumerable<string> Names =>
