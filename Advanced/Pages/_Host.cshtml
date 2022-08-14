@@ -1,5 +1,7 @@
 @page "/"
 @{ Layout = null; }
+@model HostModel
+@using Microsoft.AspNetCore.Authorization
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +10,15 @@
  <base href="~/" />
 </head>
 <body>
- <div class="m-2">
+<div class="m-2">
  <component type="typeof(Advanced.Blazor.Routed)" render-mode="Server" />
- </div>
- <script src="_framework/blazor.server.js"></script>
+</div>
+<script src="_framework/blazor.server.js"></script>
 </body>
 </html>
+
+@functions
+{
+ [Authorize]
+ public class HostModel : PageModel {}
+}

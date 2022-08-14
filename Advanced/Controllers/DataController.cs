@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore;
 namespace Advanced.Controllers;
 
 using Data;
+using Microsoft.AspNetCore.Authorization;
 using Models;
 
 [ApiController]
 [Route("/api/people")]
+[Authorize(AuthenticationSchemes = "Identity.Application, Bearer")]
 public class DataController : ControllerBase {
 	private DataContext context;
 	public DataController(DataContext ctx) {
